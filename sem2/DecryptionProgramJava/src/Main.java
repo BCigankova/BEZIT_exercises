@@ -3,14 +3,12 @@ import java.security.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws NoSuchAlgorithmException {
+    public static void main(String[] args) {
 
-        System.out.println("SHA256 hash:\n" + Base64.getEncoder().encodeToString(MessageDigest.getInstance("SHA256").digest("barbora cigankova".getBytes())));
-
-        try (Reader reader = new FileReader("/home/barbora/LS/BEZIT/sem2/cipher");
+        try (Reader reader = new FileReader("/file/to/cipher");
              BufferedReader brd = new BufferedReader(reader)) {
 
-            String cipher = brd.readLine().toLowerCase(); //cela cipher je jedna radka
+            String cipher = brd.readLine().toLowerCase(); //whole cipher was one line
             printLastnReversed(countLetterFrequency(cipher), 10);
             printLastnReversed(countBigramFrequency(cipher), 20);
             printLastnReversed(countDoublesFrequency(cipher), 10);
@@ -18,31 +16,13 @@ public class Main {
             char[] bindings = "btkxzvwymojnpiaqluscdhregf".toCharArray();
             System.out.println(constructPlaintext(cipher, bindings));
 
-        } catch (IOException e) {
+        } catch (IOException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
 
         /*
 
-        Hadani
-
-        cipher = cipher.replaceAll("x", "e");
-        cipher = cipher.replaceAll("b", "t");
-        cipher = cipher.replaceAll("v", "h"); //temer stoprocentne to jsou tyhle znaky podle letterFrequency a bigramu
-
-        cipher = cipher.replaceAll("o", "a");  //?
-        cipher = cipher.replaceAll("l", "n");
-        cipher = cipher.replaceAll("w", "r");
-        cipher = cipher.replaceAll("q", "l");
-        cipher = cipher.replaceAll("j", "o");
-
-        cipher = cipher.replaceAll("g", "w");
-        //cipher = cipher.replaceAll("n", "i");
-        cipher = cipher.replaceAll("y", "g");
-        cipher = cipher.replaceAll("u", "d");
-        cipher = cipher.replaceAll("i", "m");
-        cipher = cipher.replaceAll("f", "v");
-
+        Key was: 
         a = b
         b = t
         c = k
